@@ -1,0 +1,9 @@
+C:\Users\kopos\source\repos\MFAProvider\MFAProvider\bin\Debug\MFAProvider.dll
+C:\Users\kopos\source\repos\MFAProvider\MFAProvider\bin\Debug\MFAProvider.pdb
+C:\Users\kopos\source\repos\MFAProvider\MFAProvider\obj\Debug\MFAProvider.csprojAssemblyReference.cache
+C:\Users\kopos\source\repos\MFAProvider\MFAProvider\obj\Debug\MFAProvider.csproj.CoreCompileInputs.cache
+C:\Users\kopos\source\repos\MFAProvider\MFAProvider\obj\Debug\MFAProvider.dll
+C:\Users\kopos\source\repos\MFAProvider\MFAProvider\obj\Debug\MFAProvider.pdb
+C:\Users\kopos\source\repos\MFAProvider\MFAProvider\obj\Debug\MFAProvider.csproj.CopyComplete
+C:\Users\kopos\source\repos\MFAProvider\MFAProvider\obj\Debug\MFAProvider.Properties.Resources.resources
+C:\Users\kopos\source\repos\MFAProvider\MFAProvider\obj\Debug\MFAProvider.csproj.GenerateResource.cache

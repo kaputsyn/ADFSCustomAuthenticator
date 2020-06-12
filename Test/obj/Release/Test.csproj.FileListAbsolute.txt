@@ -1,0 +1,11 @@
+C:\Users\kopos\source\repos\MFAProvider\Test\bin\Release\Test.exe.config
+C:\Users\kopos\source\repos\MFAProvider\Test\bin\Release\Test.exe
+C:\Users\kopos\source\repos\MFAProvider\Test\bin\Release\Test.pdb
+C:\Users\kopos\source\repos\MFAProvider\Test\bin\Release\MFAProvider.dll
+C:\Users\kopos\source\repos\MFAProvider\Test\bin\Release\Microsoft.IdentityServer.Web.dll
+C:\Users\kopos\source\repos\MFAProvider\Test\bin\Release\MFAProvider.pdb
+C:\Users\kopos\source\repos\MFAProvider\Test\obj\Release\Test.csprojAssemblyReference.cache
+C:\Users\kopos\source\repos\MFAProvider\Test\obj\Release\Test.csproj.CoreCompileInputs.cache
+C:\Users\kopos\source\repos\MFAProvider\Test\obj\Release\Test.csproj.CopyComplete
+C:\Users\kopos\source\repos\MFAProvider\Test\obj\Release\Test.exe
+C:\Users\kopos\source\repos\MFAProvider\Test\obj\Release\Test.pdb
