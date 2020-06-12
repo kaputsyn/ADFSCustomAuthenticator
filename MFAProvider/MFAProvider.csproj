@@ -58,6 +58,7 @@
     <Compile Include="CodeVerification\IUsedCodesManager.cs" />
     <Compile Include="CodeVerification\TimeAuthenticator.cs" />
     <Compile Include="CodeVerification\UsedCodesManager.cs" />
+    <Compile Include="EventLogHelper.cs" />
     <Compile Include="FozzyAdapter.cs" />
     <Compile Include="FozzyAdapterPresentationForm.cs" />
     <Compile Include="FozzyAuthenticationAdapterMetadata.cs" />
