@@ -18,7 +18,7 @@ namespace MFAProvider
 
         public IAdapterPresentation BeginAuthentication(Claim identityClaim, HttpListenerRequest request, IAuthenticationContext authContext)
         {
-            using (EventLog eventLog = new EventLog("FozzyAdapter"))
+            using (EventLog eventLog = new EventLog("Application"))
             {
                 eventLog.Source = "FozzyAdapter";
                 eventLog.WriteEntry($"BeginAuthentication {identityClaim.Value}", EventLogEntryType.Information, 101, 1);
