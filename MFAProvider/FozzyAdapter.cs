@@ -18,9 +18,9 @@ namespace MFAProvider
 
         public IAdapterPresentation BeginAuthentication(Claim identityClaim, HttpListenerRequest request, IAuthenticationContext authContext)
         {
-            using (EventLog eventLog = new EventLog("Application"))
+            using (EventLog eventLog = new EventLog("MFAProvider"))
             {
-                eventLog.Source = "FozzyAdapter";
+                eventLog.Source = "MFAProvider";
                 eventLog.WriteEntry($"BeginAuthentication {identityClaim.Value}", EventLogEntryType.Information, 101, 1);
 
                 var secret = InMemorySecretsRepository.GetSecret(identityClaim.Value).GetAwaiter().GetResult();
