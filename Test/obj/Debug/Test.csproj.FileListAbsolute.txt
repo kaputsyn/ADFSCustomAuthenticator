@@ -32,3 +32,6 @@ C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\Test\bin\Debug\nunit.framewo
 C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\Test\obj\Debug\Test.csproj.CopyComplete
 C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\Test\obj\Debug\Test.exe
 C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\Test\obj\Debug\Test.pdb
+C:\Users\kopos\Desktop\ADFSCustomAuthenticator\Test\bin\Debug\nunit.framework.dll
+C:\Users\kopos\Desktop\ADFSCustomAuthenticator\Test\bin\Debug\nunit.framework.pdb
+C:\Users\kopos\Desktop\ADFSCustomAuthenticator\Test\bin\Debug\nunit.framework.xml
