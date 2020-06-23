@@ -10,7 +10,7 @@ namespace MFAProvider.Secrets
 {
     public class SqlSecretsRepository
     {
-        private static readonly string connstr = "Data Source=s-kv-test01-s01;Initial Catalog=TOTP;User Integrated Security=true;";
+        private static readonly string connstr = "Data Source=s-kv-test01-s01;Initial Catalog=TOTP;Integrated Security=true;";
         public static async Task<string> GetSecret(string upn)
         {
             string sql = "SELECT [secret] FROM[TOTPAuthentication].[dbo].[Secrets] where upn = @upn";
