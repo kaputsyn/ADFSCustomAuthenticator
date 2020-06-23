@@ -13,7 +13,7 @@ namespace MFAProvider.Secrets
         private static readonly string connstr = "Data Source=s-kv-test01-s01;Initial Catalog=MFA;Integrated Security=true;";
         public static async Task<string> GetSecret(string upn)
         {
-            string sql = "SELECT [secret] FROM[TOTPAuthentication].[dbo].[Secrets] where upn = @upn";
+            string sql = "SELECT [secret] FROM [dbo].[Secrets] where upn = @upn";
             using (SqlConnection connection = new SqlConnection(connstr))
             {
                 using (var cmd = new SqlCommand(sql, connection))
