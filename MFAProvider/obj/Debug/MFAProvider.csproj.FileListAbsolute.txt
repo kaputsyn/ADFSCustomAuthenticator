@@ -16,3 +16,5 @@ C:\Users\kopos\Desktop\ADFSCustomAuthenticator\MFAProvider\obj\Debug\MFAProvider
 C:\Users\kopos\Desktop\ADFSCustomAuthenticator\MFAProvider\obj\Debug\MFAProvider.csproj.CopyComplete
 C:\Users\kopos\Desktop\ADFSCustomAuthenticator\MFAProvider\obj\Debug\MFAProvider.dll
 C:\Users\kopos\Desktop\ADFSCustomAuthenticator\MFAProvider\obj\Debug\MFAProvider.pdb
+C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\MFAProvider\obj\Debug\MFAProvider.Properties.Resources.resources
+C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\MFAProvider\obj\Debug\MFAProvider.csproj.GenerateResource.cache

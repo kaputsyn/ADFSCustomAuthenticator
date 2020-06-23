@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace MFAProvider.Secrets
 {
-    public class SqlSecretsRepository : ISecretsRepository
+    public class SqlSecretsRepository
     {
-        private readonly string connstr = "Data Source=DESKTOP-BCIKAIO\\SQLEXPRESS;Initial Catalog=TOTPAuthentication;User Id=j-mfaProvider;Password=ahtung;";
-        public async Task<string> GetSecret(string upn)
+        private static readonly string connstr = "Data Source=s-kv-test01-s01;Initial Catalog=TOTP;User Integrated Security=true;";
+        public static async Task<string> GetSecret(string upn)
         {
             string sql = "SELECT [secret] FROM[TOTPAuthentication].[dbo].[Secrets] where upn = @upn";
             using (SqlConnection connection = new SqlConnection(connstr))
@@ -29,18 +29,18 @@ namespace MFAProvider.Secrets
 
                     if (ds.Tables == null
                         || ds.Tables.Count == 0
-                        || ds.Tables[0].Columns.Count < 1) 
-                    
+                        || ds.Tables[0].Columns.Count < 1)
+
                     {
                         throw new Exception("Invalid database response");
                     }
-                    if (ds.Tables[0].Rows.Count == 0) 
+                    if (ds.Tables[0].Rows.Count == 0)
                     {
                         return null;
                     }
 
                     var value = ds.Tables[0].Rows[0][0];
-                    if (value == DBNull.Value) 
+                    if (value == DBNull.Value)
                     {
                         return null;
                     }
@@ -49,23 +49,32 @@ namespace MFAProvider.Secrets
                 }
             }
         }
-        
 
-        public async Task PutSecret(string upn, string secret)
+
+        public static async Task PutSecret(string upn, string secret)
         {
-        string sql = "INSERT INTO [dbo].[Secrets] ([upn] ,[secret]) VALUES (@upn, @secret)";
-        using (SqlConnection connection = new SqlConnection(connstr))
-        {
-            using (var cmd = new SqlCommand(sql, connection))
+            string sql = @"MERGE [dbo].[Secrets] t 
+                        USING(VALUES(@upn, @secret)) as s(upn, [secret])
+                    ON(s.upn = t.upn)
+                    WHEN MATCHED
+                        THEN UPDATE SET
+                            t.[secret] = s.[secret]
+                    WHEN NOT MATCHED BY TARGET
+                        THEN INSERT([upn], [secret])
+                             VALUES(s.[upn], s.[secret]);";
+            using (SqlConnection connection = new SqlConnection(connstr))
             {
-                cmd.Parameters.AddWithValue("@upn", upn);
-                cmd.Parameters.AddWithValue("@secret", secret);
+                using (var cmd = new SqlCommand(sql, connection))
+                {
+                    cmd.Parameters.AddWithValue("@upn", upn);
+                    cmd.Parameters.AddWithValue("@secret", secret);
 
-                connection.Open();
+                    connection.Open();
 
-                cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
-    }
 
+    }
 }

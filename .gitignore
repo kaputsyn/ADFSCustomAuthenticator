@@ -6,3 +6,4 @@
 .vs/MFAProvider/v16/.suo
 .vs/MFAProvider/v16/.suo
 *.cache
+*.lock

@@ -20,3 +20,15 @@ C:\Users\kopos\Desktop\ADFSCustomAuthenticator\Test\obj\Debug\Test.csproj.CoreCo
 C:\Users\kopos\Desktop\ADFSCustomAuthenticator\Test\obj\Debug\Test.csproj.CopyComplete
 C:\Users\kopos\Desktop\ADFSCustomAuthenticator\Test\obj\Debug\Test.exe
 C:\Users\kopos\Desktop\ADFSCustomAuthenticator\Test\obj\Debug\Test.pdb
+C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\Test\bin\Debug\Test.exe.config
+C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\Test\bin\Debug\Test.exe
+C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\Test\bin\Debug\Test.pdb
+C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\Test\bin\Debug\MFAProvider.dll
+C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\Test\bin\Debug\nunit.framework.dll
+C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\Test\bin\Debug\Microsoft.IdentityServer.Web.dll
+C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\Test\bin\Debug\MFAProvider.pdb
+C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\Test\bin\Debug\nunit.framework.pdb
+C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\Test\bin\Debug\nunit.framework.xml
+C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\Test\obj\Debug\Test.csproj.CopyComplete
+C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\Test\obj\Debug\Test.exe
+C:\work\projects\Erchitecture\Perevershnyk\ADFS_MFA\Test\obj\Debug\Test.pdb
