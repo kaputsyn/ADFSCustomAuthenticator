@@ -70,6 +70,7 @@
     </Compile>
     <Compile Include="Secrets\InMemorySecretsRepository.cs" />
     <Compile Include="Secrets\ISecretsRepository.cs" />
+    <Compile Include="Secrets\SqlSecretsRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
