@@ -71,32 +71,38 @@ namespace MFAProvider
 
         public IAdapterPresentation TryEndAuthentication(IAuthenticationContext authContext, IProofData proofData, HttpListenerRequest request, out Claim[] outgoingClaims)
         {
+            var upn = (string)authContext.Data["upn"];
             using (EventLog eventLog = new EventLog("MFAProvider"))
             {
                 eventLog.Source = "FozzyAdapter";
                 eventLog.WriteEntry($"TryEndAuthentication {(string)authContext.Data["upn"]}", EventLogEntryType.Information, 104, 1);
 
 
-                if ((bool)authContext.Data["needSaveSecret"] == true)
-                {
-                    eventLog.WriteEntry($"PutSecret {(string)authContext.Data["upn"]}", EventLogEntryType.Information, 105, 1);
+               
 
-                    SqlSecretsRepository.PutSecret((string)authContext.Data["upn"], (string)authContext.Data["secret"]).GetAwaiter().GetResult();
-                }
-
-                eventLog.WriteEntry($"Validate {(string)authContext.Data["upn"]}", EventLogEntryType.Information, 106, 1);
-                if (ValidateProofData(proofData, authContext))
+                eventLog.WriteEntry($"Validate {upn}", EventLogEntryType.Information, 106, 1);
+                if (ValidateProofData(proofData, authContext) && SqlSecretsRepository.HasAttempt(upn).Result)
                 {
+
                     //authn complete - return authn method
                     outgoingClaims = new[]
                     {
                     new Claim( "http://schemas.microsoft.com/ws/2008/06/identity/claims/authenticationmethod",
                     "http://schemas.microsoft.com/ws/2008/06/identity/authenticationmethod/hardwaretoken" ) };
 
-                    eventLog.WriteEntry($"Valid {(string)authContext.Data["upn"]}", EventLogEntryType.Information, 107, 1);
+                    eventLog.WriteEntry($"Valid {upn}", EventLogEntryType.Information, 107, 1);
+
+                    if ((bool)authContext.Data["needSaveSecret"] == true)
+                    {
+                        eventLog.WriteEntry($"PutSecret {upn}", EventLogEntryType.Information, 105, 1);
+
+                        SqlSecretsRepository.PutSecret(upn, (string)authContext.Data["secret"]).GetAwaiter().GetResult();
+                    }
+                    SqlSecretsRepository.UseAttempt(upn, (string)proofData.Properties["OTP"], true).Wait();
                     return null;
                 }
-                eventLog.WriteEntry($"Not valid {(string)authContext.Data["upn"]}", EventLogEntryType.Information, 108, 1);
+                SqlSecretsRepository.UseAttempt(upn, (string)proofData.Properties["OTP"], false).Wait();
+                eventLog.WriteEntry($"Not valid {upn}", EventLogEntryType.Information, 108, 1);
                 //return new instance of IAdapterPresentationForm derived class
                 outgoingClaims = new Claim[0];
                 return new FozzyAdapterPresentationForm(null);
