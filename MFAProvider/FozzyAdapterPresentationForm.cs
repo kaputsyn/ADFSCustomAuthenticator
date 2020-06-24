@@ -1,19 +1,17 @@
 ﻿using MFAProvider.Properties;
 using Microsoft.IdentityServer.Web.Authentication.External;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MFAProvider
 {
     class FozzyAdapterPresentationForm : IAdapterPresentationForm
     {
         string _secret;
-        public FozzyAdapterPresentationForm(string secret)
+        string _warningText;
+        public FozzyAdapterPresentationForm(string secret, string warningText)
         {
             _secret = secret;
+            _warningText = warningText;
         }
         /// Returns the HTML Form fragment that contains the adapter user interface. This data will be included in the web page that is presented
         /// to the cient.
@@ -25,8 +23,9 @@ namespace MFAProvider
             }
             else 
             {
-                return Resources.RegisterPage.Replace("%MFASecret%", _secret);
+                return Resources.RegisterPage.Replace("%MFASecret%", _secret).Replace("%Warning%", _warningText??"");
             }
+
         }
 
         /// Return any external resources, ie references to libraries etc., that should be included in 

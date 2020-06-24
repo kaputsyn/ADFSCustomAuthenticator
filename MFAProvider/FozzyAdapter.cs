@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Net;
 using System.Security.Claims;
+using System.Text;
 using TwoStepsAuthenticator;
 
 namespace MFAProvider
@@ -32,7 +33,7 @@ namespace MFAProvider
                     secret = Authenticator.GenerateKey();
                     authContext.Data.Add("needSaveSecret", true);
                     authContext.Data.Add("secret", secret);
-                    return new FozzyAdapterPresentationForm(secret);
+                    return new FozzyAdapterPresentationForm(secret, null);
                 }
                 else
                 {
@@ -40,7 +41,7 @@ namespace MFAProvider
 
                     authContext.Data.Add("needSaveSecret", false);
                     authContext.Data.Add("secret", secret);
-                    return new FozzyAdapterPresentationForm(null);
+                    return new FozzyAdapterPresentationForm(null, null);
                 }
 
             }
@@ -71,19 +72,31 @@ namespace MFAProvider
 
         public IAdapterPresentation TryEndAuthentication(IAuthenticationContext authContext, IProofData proofData, HttpListenerRequest request, out Claim[] outgoingClaims)
         {
+            if (proofData == null || proofData.Properties == null || !proofData.Properties.ContainsKey("OTP"))
+            {
+                throw new ExternalAuthenticationException("Error - please input an answer", authContext);
+            }
+
             var upn = (string)authContext.Data["upn"];
+            var needSaveSecret = (bool)authContext.Data["needSaveSecret"];
+            var secret = (string)authContext.Data["secret"];
+            var otp = (string)proofData.Properties["OTP"];
+
+
             using (EventLog eventLog = new EventLog("MFAProvider"))
             {
                 eventLog.Source = "FozzyAdapter";
                 eventLog.WriteEntry($"TryEndAuthentication {(string)authContext.Data["upn"]}", EventLogEntryType.Information, 104, 1);
 
 
-               
 
-                eventLog.WriteEntry($"Validate {upn}", EventLogEntryType.Information, 106, 1);
+                var hasAttempts = SqlSecretsRepository.HasAttempt(upn).Result;
+                var isValidOtp = ValidateProofData(otp, authContext);
+
+                eventLog.WriteEntry($"Validate {upn} hasAttempts: {hasAttempts}  isValidOtp: {isValidOtp}", EventLogEntryType.Information, 106, 1);
 
 
-                if (SqlSecretsRepository.HasAttempt(upn).Result && ValidateProofData(proofData, authContext))
+                if (hasAttempts && isValidOtp)
                 {
 
                     //authn complete - return authn method
@@ -94,31 +107,26 @@ namespace MFAProvider
 
                     eventLog.WriteEntry($"Valid {upn}", EventLogEntryType.Information, 107, 1);
 
-                    if ((bool)authContext.Data["needSaveSecret"] == true)
+                    if (needSaveSecret)
                     {
                         eventLog.WriteEntry($"PutSecret {upn}", EventLogEntryType.Information, 105, 1);
 
-                        SqlSecretsRepository.PutSecret(upn, (string)authContext.Data["secret"]).GetAwaiter().GetResult();
+                        SqlSecretsRepository.PutSecret(upn, secret).GetAwaiter().GetResult();
                     }
-                    SqlSecretsRepository.UseAttempt(upn, (string)proofData.Properties["OTP"], true).Wait();
+                    SqlSecretsRepository.UseAttempt(upn, otp, true).Wait();
                     return null;
                 }
-                SqlSecretsRepository.UseAttempt(upn, (string)proofData.Properties["OTP"], false).Wait();
+                SqlSecretsRepository.UseAttempt(upn, otp, false).Wait();
                 eventLog.WriteEntry($"Not valid {upn}", EventLogEntryType.Information, 108, 1);
                 //return new instance of IAdapterPresentationForm derived class
                 outgoingClaims = new Claim[0];
-                return new FozzyAdapterPresentationForm((string)authContext.Data["secret"]);
+
+                return new FozzyAdapterPresentationForm(needSaveSecret?secret:null,!hasAttempts?"Not enough attempts":"Invalid otp" );
             }
         }
 
-        private bool ValidateProofData(IProofData proofData, IAuthenticationContext authContext)
+        private bool ValidateProofData(string otp, IAuthenticationContext authContext)
         {
-            if (proofData == null || proofData.Properties == null || !proofData.Properties.ContainsKey("OTP"))
-            {
-                throw new ExternalAuthenticationException("Error - please input an answer", authContext);
-            }
-
-            var otp = (string)proofData.Properties["OTP"];
 
             if (_authenticator.CheckCode((string)authContext.Data["secret"], otp, (string)authContext.Data["upn"]))
             {
