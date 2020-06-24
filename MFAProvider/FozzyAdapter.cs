@@ -81,7 +81,9 @@ namespace MFAProvider
                
 
                 eventLog.WriteEntry($"Validate {upn}", EventLogEntryType.Information, 106, 1);
-                if (ValidateProofData(proofData, authContext) && SqlSecretsRepository.HasAttempt(upn).Result)
+
+
+                if (SqlSecretsRepository.HasAttempt(upn).Result && ValidateProofData(proofData, authContext))
                 {
 
                     //authn complete - return authn method

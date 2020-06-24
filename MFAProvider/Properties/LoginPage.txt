@@ -5,7 +5,7 @@
  <input id="context" type="hidden" name="Context" value="%Context%"/>
  <!-- End inputs required by the presentation framework. -->
  <p id="pageIntroductionText">Enter OTP</p>
- <input id="Input" name="OTP" type="password" value="" class="text" placeholder="foo" />
+ <input id="Input" name="OTP"  value="" class="text" placeholder="foo" />
  <div id="submissionArea" class="submitMargin">
  <input id="submitButton" type="submit" name="Submit" value="Submit" onclick="return AuthPage.submitAnswer()"/>
  </div>

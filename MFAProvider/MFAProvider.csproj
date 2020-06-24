@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthErrorTypes.cs" />
     <Compile Include="CodeVerification\Authenticator.cs" />
     <Compile Include="CodeVerification\Base32Encoding.cs" />
     <Compile Include="CodeVerification\CounterAuthenticator.cs" />

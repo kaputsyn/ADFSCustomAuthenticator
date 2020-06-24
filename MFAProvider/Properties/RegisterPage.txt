@@ -6,7 +6,7 @@
  <!-- End inputs required by the presentation framework. -->
  <p id="pageIntroductionText">Enter OTP, after registering secret: %MFASecret%</p>
  <label for="Input" class="block">OTP</label>
- <input id="Input" name="OTP" type="password" value="" class="text" placeholder="foo" />
+ <input id="Input" name="OTP"  value="" class="text" placeholder="foo" />
  <div id="submissionArea" class="submitMargin">
  <input id="submitButton" type="submit" name="Submit" value="Submit" onclick="return AuthPage.submitAnswer()"/>
  </div>

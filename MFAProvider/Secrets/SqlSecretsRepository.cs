@@ -80,7 +80,7 @@ namespace MFAProvider.Secrets
 
         public static async Task<bool> HasAttempt(string upn) 
         {
-            string sql = "SELECT [secret] FROM [dbo].[Attempts] where upn = @upn AND isValid = 0 AND created > @intervalStart";
+            string sql = "SELECT 1 FROM [dbo].[Attempts] where upn = @upn AND isValid = 0 AND created > @intervalStart";
             using (SqlConnection connection = new SqlConnection(connstr))
             {
                 using (var cmd = new SqlCommand(sql, connection))
