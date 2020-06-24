@@ -19,7 +19,7 @@ namespace MFAProvider
         {
             if (String.IsNullOrEmpty(_secret))
             {
-                return Resources.LoginPage;
+                return Resources.LoginPage.Replace("%Warning%", _warningText ?? "");
             }
             else 
             {
