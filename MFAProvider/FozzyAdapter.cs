@@ -105,7 +105,7 @@ namespace MFAProvider
                 eventLog.WriteEntry($"Not valid {upn}", EventLogEntryType.Information, 108, 1);
                 //return new instance of IAdapterPresentationForm derived class
                 outgoingClaims = new Claim[0];
-                return new FozzyAdapterPresentationForm(null);
+                return new FozzyAdapterPresentationForm((string)authContext.Data["secret"]);
             }
         }
 
